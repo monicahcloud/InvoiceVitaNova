@@ -22,6 +22,26 @@ import {
 import { signOut } from "../utlis/auth";
 import Image from "next/image";
 import { Toaster } from "@/components/ui/sonner";
+import prisma from "../utils/db";
+import { redirect } from "next/navigation";
+
+async function getUser(userId: string) {
+  const data = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      firstName: true,
+      lastName: true,
+      address: true,
+      phone:true
+    },
+  });
+
+  if (!data?.firstName || !data.lastName || !data.address || !data.phone)  {
+    redirect("/onboarding");
+  }
+}
 
 export default async function DashboardLayout({
   children,
@@ -29,13 +49,15 @@ export default async function DashboardLayout({
   children: ReactNode;
 }) {
   const session = await requireUser();
+const data = await getUser(session.user?.id as string);
+
   return (
     <>
       <div className="grid min-h-screen w-full md:grid-cols-[240px_1fr] lg:grid-cols-[300px_1fr]">
         <div className="hidden border-r bg-muted/40 md:block">
           <div className="flex flex-col max-h-screen h-full gap-2">
             <div className="h-14 flex items-center border-b px-4 lg:h-[60px] lg:px-6">
-              <Link href="/" className="flex items-center ">
+              <Link href="/" className="flex items-center gap-2">
                 <Image src={Logo} alt="Logo" className="size-24" priority />
                 <p className="text-xl font-bold">
                   Business<span className="text-violet-600">Hub</span>
@@ -59,7 +81,7 @@ export default async function DashboardLayout({
                 </Button>
               </SheetTrigger>
               <SheetContent side="left">
-                <nav className="grid-2 mt-10">
+                <nav className="grid-2 gap-2 mt-10">
                   <DashboardLinks />
                 </nav>
               </SheetContent>
