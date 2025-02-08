@@ -22,7 +22,7 @@ import {
 import { signOut } from "../utlis/auth";
 import Image from "next/image";
 import { Toaster } from "@/components/ui/sonner";
-import prisma from "../utils/db";
+import { prisma } from "@/app/utlis/prisma";
 import { redirect } from "next/navigation";
 
 async function getUser(userId: string) {
