@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Calendar1, HomeIcon, Users2 } from "lucide-react";
+import { Calendar1, HomeIcon, List, Users2 } from "lucide-react";
 import { nanoid } from "nanoid";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -24,6 +24,12 @@ export const dashboardlinks = [
     name: "Scheduler",
     href: "/dashboard/scheduler",
     icon: Calendar1,
+  },
+  {
+    id: nanoid(),
+    name: "Tasks",
+    href: "/dashboard/tasks",
+    icon: List,
   },
 ];
 

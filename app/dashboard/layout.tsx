@@ -36,7 +36,7 @@ export default async function DashboardLayout({
           <div className="flex flex-col max-h-screen h-full gap-2">
             <div className="h-14 flex items-center border-b px-4 lg:h-[60px] lg:px-6">
               <Link href="/" className="flex items-center ">
-                 <Image src={Logo} alt="Logo" className="size-24" priority /> 
+                <Image src={Logo} alt="Logo" className="size-24" priority />
                 <p className="text-xl font-bold">
                   Business<span className="text-violet-600">Hub</span>
                 </p>
@@ -85,6 +85,12 @@ export default async function DashboardLayout({
                   <DropdownMenuItem asChild>
                     <Link href="/dashboard/invoices">Invoices</Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/dashboard/scheduler">Scheduler</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/dashboard/tasks">Task</Link>
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
                     <form
@@ -101,12 +107,12 @@ export default async function DashboardLayout({
               </DropdownMenu>
             </div>
           </header>
-          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-8 lg:p-8"> 
+          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-8 lg:p-8">
             {children}
           </main>
         </div>
       </div>
-      <Toaster richColors closeButton theme="light"/>
+      <Toaster richColors closeButton theme="light" />
     </>
   );
 }
