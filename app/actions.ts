@@ -80,24 +80,26 @@ const recipients = [
   },
 ];
 
-  emailClient
-    .send({
-      from: sender,
-      to: recipients,
-      template_uuid: "3c628527-9aa1-4402-bf17-9ba2e0833f46",
-      template_variables: {
-        clientName: submission.value.clientName,
-        invoiceNumber: submission.value.invoiceNumber,
-        dueDate: new Intl.DateTimeFormat("en-US", { dateStyle: "long" ,}).format(
-          new Date(submission.value.date
-          )),
-        totalAmount: formatCurrency({
-          amount: submission.value.total,
-          currency: submission.value.currency as any,
-        }),
-        invoiceLink: `http://localhost:3000/api/invoice/${data.id}`,
-      },
-    })
+  emailClient.send({
+    from: sender,
+    to: recipients,
+    template_uuid: "3c628527-9aa1-4402-bf17-9ba2e0833f46",
+    template_variables: {
+      clientName: submission.value.clientName,
+      invoiceNumber: submission.value.invoiceNumber,
+      dueDate: new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(
+        new Date(submission.value.date)
+      ),
+      totalAmount: formatCurrency({
+        amount: submission.value.total,
+        currency: submission.value.currency as any,
+      }),
+      invoiceLink:
+        process.env.NODE_ENV !== "production"
+          ? `http://localhost:3000/api/invoice/${data.id}`
+          : `http://localhost:3000/api/invoice/${data.id}`,
+    },
+  });
   return redirect("/dashboard/invoices")
 }
 
