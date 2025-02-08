@@ -21,6 +21,8 @@ export default async function Login() {
   }
   return (
     <>
+       <div className="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+     
       <div className="flex h-screen w-full items-center justify-center px-4">
         <Card className="max-w-sm">
           <CardHeader>
@@ -39,9 +41,14 @@ export default async function Login() {
             >
               <div className="flex flex-col gap-y-2">
                 <Label>Email</Label>
-                <Input name='email' type='email' required placeholder="hello@hello.com" />
+                <Input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="hello@hello.com"
+                />
               </div>
-             <SubmitButtons text='Login'/>
+              <SubmitButtons text="Login" />
             </form>
           </CardContent>
         </Card>

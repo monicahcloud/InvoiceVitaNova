@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 import { prisma } from "../utlis/prisma";
-import { Padauk } from "next/font/google";
 import { requireUser } from "../utlis/hooks";
+import { formatCurrency } from "../utlis/formatCurrency";
 
 async function getData(userId: string) {
   const [data, openInvoices, paidInvoices] = await Promise.all([
@@ -52,10 +52,13 @@ export async function DashboardBlocks() {
         </CardHeader>
         <CardContent>
           <h2 className="text-2xl font-bold ">
-            ${data.reduce((acc, invoice) => acc + invoice.total, 0)}
+            {formatCurrency({
+              amount: data.reduce((acc, invoice) => acc + invoice.total, 0),
+              currency: "USD",
+            })}
           </h2>
           <p className="text-xs text-muted-foreground">
-            Based on the last 30 days
+            Based on total volume
           </p>
         </CardContent>
       </Card>
@@ -87,13 +90,13 @@ export async function DashboardBlocks() {
       </Card>
       <Card>
         <CardHeader className="flex flex-row justify-between space-y-0 pb-2 items-center">
-          <CardTitle className="text-sm font-medium ">Open Invoices</CardTitle>
+          <CardTitle className="text-sm font-medium ">Pending Invoices</CardTitle>
           <Activity className="size-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
           <h2 className="text-2xl font-bold ">+{openInvoices.length}</h2>
           <p className="text-xs text-muted-foreground">
-            Invoices still outstanding!
+            Invoices which are currently pending!
           </p>
         </CardContent>
       </Card>

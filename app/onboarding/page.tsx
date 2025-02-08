@@ -30,6 +30,11 @@ export default function Onboarding() {
 
   return (
     <div className="min-h-screen w-screen flex items-center justify-center">
+      <div className="absolute top-0 -z-10 h-full w-full bg-white">
+        <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#ad6df480_1px,transparent_1px),linear-gradient(to_bottom,#ad6df480_1px,transparent_1px)] bg-[size:6rem_4rem]">
+          <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_5000px_at_50%_200px,#ad6df480,transparent)]"></div>
+        </div>
+      </div>
       <Card className="max-w-sm mx-auto">
         <CardHeader>
           <CardTitle className="text-xl">You are almost finished!</CardTitle>

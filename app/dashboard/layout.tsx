@@ -38,7 +38,7 @@ export default async function DashboardLayout({
               <Link href="/" className="flex items-center ">
                  <Image src={Logo} alt="Logo" className="size-24" priority /> 
                 <p className="text-xl font-bold">
-                  Invoice<span className="text-violet-600">VitaNova</span>
+                  Business<span className="text-violet-600">Hub</span>
                 </p>
               </Link>
             </div>
