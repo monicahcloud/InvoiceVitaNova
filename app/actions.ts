@@ -97,7 +97,7 @@ const recipients = [
       invoiceLink:
         process.env.NODE_ENV !== "production"
           ? `http://localhost:3000/api/invoice/${data.id}`
-          : `http://localhost:3000/api/invoice/${data.id}`,
+          : `https://vitanovabusinesshub.netlify.app/api/invoice/${data.id}`,
     },
   });
   return redirect("/dashboard/invoices")
@@ -166,7 +166,7 @@ emailClient.send({
     invoiceLink:
       process.env.NODE_ENV !== "production"
         ? `http://localhost:3000/api/invoice/${data.id}`
-        : `http://localhost:3000/api/invoice/${data.id}`,
+        : `https://vitanovabusinesshub.netlify.app/api/invoice/${data.id}`,
   },
 });
 return redirect("/dashboard/invoices")
