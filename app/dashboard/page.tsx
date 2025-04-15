@@ -43,7 +43,7 @@ export default async function DashboardRoute() {
               <InvoiceGraph />
               <RecentInvoices />
             </div>
-          </Suspense>{" "}
+          </Suspense>
         </>
       )}
     </>

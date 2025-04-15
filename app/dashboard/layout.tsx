@@ -4,11 +4,7 @@ import Link from "next/link";
 import Logo from "@/public/vitanovalogo.svg";
 
 import { DashboardLinks } from "../components/DashboardLinks";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu, User2 } from "lucide-react";
 import {
@@ -24,6 +20,7 @@ import Image from "next/image";
 import { Toaster } from "@/components/ui/sonner";
 import { prisma } from "@/app/utlis/prisma";
 import { redirect } from "next/navigation";
+import { ThemeToggle } from "../components/ThemeToggle";
 
 async function getUser(userId: string) {
   const data = await prisma.user.findUnique({
@@ -34,11 +31,11 @@ async function getUser(userId: string) {
       firstName: true,
       lastName: true,
       address: true,
-      phone:true
+      phone: true,
     },
   });
 
-  if (!data?.firstName || !data.lastName || !data.address || !data.phone)  {
+  if (!data?.firstName || !data.lastName || !data.address || !data.phone) {
     redirect("/onboarding");
   }
 }
@@ -49,7 +46,7 @@ export default async function DashboardLayout({
   children: ReactNode;
 }) {
   const session = await requireUser();
-const data = await getUser(session.user?.id as string);
+  const data = await getUser(session.user?.id as string);
 
   return (
     <>
@@ -87,15 +84,21 @@ const data = await getUser(session.user?.id as string);
               </SheetContent>
             </Sheet>
 
-            <div className="flex items-center ml-auto">
+            <div className="flex items-center ml-auto gap-4 mr-10">
+              <ThemeToggle />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     className="rounded-full"
                     variant="outline"
-                    size="icon"
-                  >
-                    <User2 />
+                    size="icon">
+                    <img
+                      src={session?.user?.image as string}
+                      alt="Profile Image"
+                      width={30}
+                      height={30}
+                      className="w-full h-full rounded-full"
+                    />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -120,8 +123,7 @@ const data = await getUser(session.user?.id as string);
                       action={async () => {
                         "use server";
                         await signOut();
-                      }}
-                    >
+                      }}>
                       <button className="w-full text-left">Log Out</button>
                     </form>
                   </DropdownMenuItem>
