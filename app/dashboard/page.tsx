@@ -6,10 +6,12 @@ import { RecentInvoices } from "../components/RecentInvoices";
 import { requireUser } from "../utlis/hooks";
 import { prisma } from "../utlis/prisma";
 import { Skeleton } from "@/components/ui/skeleton";
+
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Dashboard",
 };
+
 async function getData(userId: string) {
   const data = await prisma.invoice.findMany({
     where: {

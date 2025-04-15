@@ -1,4 +1,3 @@
-
 import {
   Card,
   CardContent,
@@ -11,22 +10,22 @@ import { Label } from "@/components/ui/label";
 import { auth, signIn } from "../utlis/auth";
 import SubmitButtons from "../components/SubmitButtons";
 import { redirect } from "next/navigation";
-
+import { Button } from "@/components/ui/button";
 
 export default async function Login() {
-  const session = await auth()
+  const session = await auth();
 
   if (session?.user) {
-    redirect('/dashboard')
+    redirect("/dashboard");
   }
   return (
     <>
-       <div className="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
-     
+      <div className="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+
       <div className="flex h-screen w-full items-center justify-center px-4">
         <Card className="max-w-sm">
           <CardHeader>
-            <CardTitle className="text-2xl">Login</CardTitle>
+            <CardTitle className="text-2xl mx-auto">Login</CardTitle>
             <CardDescription>
               Enter your email below to login into your account
             </CardDescription>
@@ -37,8 +36,7 @@ export default async function Login() {
                 "use server";
                 await signIn("nodemailer", formData);
               }}
-              className="flex flex-col gap-y-4"
-            >
+              className="flex flex-col gap-y-4">
               <div className="flex flex-col gap-y-2">
                 <Label>Email</Label>
                 <Input
@@ -48,8 +46,21 @@ export default async function Login() {
                   placeholder="hello@email.com"
                 />
               </div>
-              <SubmitButtons text="Login" />
+              <SubmitButtons text="Login with Email" />
             </form>
+            <hr />
+            <div className="flex flex-col mt-5 gap-3">
+              <form
+                action={async () => {
+                  "use server";
+                  await signIn("google");
+                }}
+                className="w-full">
+                <Button type="submit" className="w-full">
+                  Sign in with Google
+                </Button>
+              </form>
+            </div>
           </CardContent>
         </Card>
       </div>
