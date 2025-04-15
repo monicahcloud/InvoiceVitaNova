@@ -1,7 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Calendar1, HomeIcon, List, Users2 } from "lucide-react";
+import {
+  Calendar1,
+  HomeIcon,
+  List,
+  Settings,
+  Settings2,
+  Users2,
+} from "lucide-react";
 import { nanoid } from "nanoid";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -31,6 +38,12 @@ export const dashboardlinks = [
     href: "/dashboard/tasks",
     icon: List,
   },
+  {
+    id: nanoid(),
+    name: "Settings",
+    href: "/dashboard/settings",
+    icon: Settings,
+  },
 ];
 
 export function DashboardLinks() {
@@ -46,8 +59,7 @@ export function DashboardLinks() {
             "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
           )}
           href={link.href}
-          key={link.id}
-        >
+          key={link.id}>
           <link.icon className="size-4" />
           {link.name}
         </Link>
