@@ -10,7 +10,6 @@ import { Label } from "@/components/ui/label";
 import { auth, signIn } from "../utlis/auth";
 import SubmitButtons, { GoogleAuthButton } from "../components/SubmitButtons";
 import { redirect } from "next/navigation";
-import { Button } from "@/components/ui/button";
 
 export default async function Login() {
   const session = await auth();
@@ -26,19 +25,34 @@ export default async function Login() {
         <Card className="max-w-sm">
           <CardHeader>
             <CardTitle className="text-2xl mx-auto">Login</CardTitle>
-            <CardDescription>
-              Enter your email below to login into your account
-            </CardDescription>
           </CardHeader>
           <CardContent>
+            <div className="flex flex-col gap-3">
+              <form
+                action={async () => {
+                  "use server";
+                  await signIn("google");
+                }}
+                className="w-full">
+                <GoogleAuthButton />
+              </form>
+            </div>
+            {/* <hr className="text-purple-700 mt-5" /> */}
+            <div className="justify-center flex mx-auto items-center mt-5">
+              <h2> OR </h2>
+            </div>
+
+            <CardDescription className="mt-2">
+              Enter your email below to login into your account
+            </CardDescription>
             <form
               action={async (formData) => {
                 "use server";
                 await signIn("nodemailer", formData);
               }}
-              className="flex flex-col gap-y-4">
+              className="flex flex-col gap-y-4  mt-1">
               <div className="flex flex-col gap-y-2">
-                <Label>Email</Label>
+                <Label></Label>
                 <Input
                   name="email"
                   type="email"
@@ -49,16 +63,6 @@ export default async function Login() {
               <SubmitButtons text="Login with Email" />
             </form>
             <hr />
-            <div className="flex flex-col mt-5 gap-3">
-              <form
-                action={async () => {
-                  "use server";
-                  await signIn("google");
-                }}
-                className="w-full">
-                <GoogleAuthButton />
-              </form>
-            </div>
           </CardContent>
         </Card>
       </div>
