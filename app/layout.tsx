@@ -13,8 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "VitaNova Design Invoice",
-  description: "VitaNova Design Invoice",
+  title: {
+    template: "%s - Business Hub",
+    absolute: "Business Hub",
+  },
+  description:
+    "Business Organization Platform, Invoicing, Scheduler, Task Manager",
 };
 
 export default function RootLayout({
@@ -25,8 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
     </html>

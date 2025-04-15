@@ -9,9 +9,12 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PlusIcon } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-
+export const metadata: Metadata = {
+  title: "Invoices",
+};
 export default function InvoicesRoute() {
   return (
     <>
@@ -27,8 +30,7 @@ export default function InvoicesRoute() {
             <div>
               <Link
                 href="/dashboard/invoices/create"
-                className={buttonVariants()}
-              >
+                className={buttonVariants()}>
                 <PlusIcon /> Create Invoice
               </Link>
             </div>

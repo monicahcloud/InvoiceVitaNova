@@ -6,7 +6,10 @@ import { RecentInvoices } from "../components/RecentInvoices";
 import { requireUser } from "../utlis/hooks";
 import { prisma } from "../utlis/prisma";
 import { Skeleton } from "@/components/ui/skeleton";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Dashboard",
+};
 async function getData(userId: string) {
   const data = await prisma.invoice.findMany({
     where: {
@@ -24,15 +27,22 @@ export default async function DashboardRoute() {
   return (
     <>
       {data.length < 1 ? (
-        <EmptyState buttontext="Create Invoice" description="Create an invoice to view invoice dashboard" title="No Invoices Found" href="/dashboard/invoices/create"/> ) : (
+        <EmptyState
+          buttontext="Create Invoice"
+          description="Create an invoice to view invoice dashboard"
+          title="No Invoices Found"
+          href="/dashboard/invoices/create"
+        />
+      ) : (
         <>
-        <Suspense fallback={<Skeleton className='w-fullh-full flex-1'/>}>
-          <DashboardBlocks />
-          <div className="grid gap-4 lg:grid-cols-3 md:gap-4">
-            <InvoiceGraph />
-            <RecentInvoices />
-          </div>
-       </Suspense> </>
+          <Suspense fallback={<Skeleton className="w-fullh-full flex-1" />}>
+            <DashboardBlocks />
+            <div className="grid gap-4 lg:grid-cols-3 md:gap-4">
+              <InvoiceGraph />
+              <RecentInvoices />
+            </div>
+          </Suspense>{" "}
+        </>
       )}
     </>
   );
