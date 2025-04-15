@@ -8,7 +8,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { auth, signIn } from "../utlis/auth";
-import SubmitButtons from "../components/SubmitButtons";
+import SubmitButtons, { GoogleAuthButton } from "../components/SubmitButtons";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
@@ -56,9 +56,7 @@ export default async function Login() {
                   await signIn("google");
                 }}
                 className="w-full">
-                <Button type="submit" className="w-full">
-                  Sign in with Google
-                </Button>
+                <GoogleAuthButton />
               </form>
             </div>
           </CardContent>
