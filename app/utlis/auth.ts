@@ -2,15 +2,19 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import { prisma } from "./prisma";
 import Nodemailer from "next-auth/providers/nodemailer";
-import GoogleProvider from "next-auth/providers/google";
+import Google from "next-auth/providers/google";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
-    GoogleProvider({
-      clientId: process.env.AUTH_GOOGLE_ID!,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
-    }),
+    // GoogleProvider({
+    //   clientId: process.env.AUTH_GOOGLE_ID!,
+    //   clientSecret: process.env.AUTH_GOOGLE_SECRET!,
+    //   async profile(profile) {
+    //     return { ...profile };
+    //   },
+    // }),
+    Google,
     Nodemailer({
       server: {
         host: process.env.EMAIL_SERVER_HOST,

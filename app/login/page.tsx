@@ -8,7 +8,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { auth, signIn } from "../utlis/auth";
-import SubmitButtons from "../components/SubmitButtons";
+import SubmitButtons, { GoogleAuthButton } from "../components/SubmitButtons";
 import { redirect } from "next/navigation";
 
 export default async function Login() {
@@ -27,7 +27,7 @@ export default async function Login() {
             <CardTitle className="text-2xl mx-auto">Login</CardTitle>
           </CardHeader>
           <CardContent>
-            {/* <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3">
               <form
                 action={async () => {
                   "use server";
@@ -37,10 +37,10 @@ export default async function Login() {
                 <GoogleAuthButton />
               </form>
             </div>
-           
+
             <div className="justify-center flex mx-auto items-center mt-5">
               <h2> OR </h2>
-            </div> */}
+            </div>
 
             <CardDescription className="mt-2">
               Enter your email below to login into your account
