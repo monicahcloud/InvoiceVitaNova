@@ -32,8 +32,7 @@ async function getUser(userId: string) {
   });
 
   if (!data?.userName) {
-    console.log("username: ", data?.userName);
-    redirect("/onboarding");
+    return redirect("/onboarding");
   }
   return data;
 }
@@ -110,7 +109,7 @@ export default async function DashboardLayout({
                     className="rounded-full"
                     variant="outline"
                     size="icon">
-                    <img
+                    <Image
                       src={session?.user?.image as string}
                       alt="Profile Image"
                       width={30}

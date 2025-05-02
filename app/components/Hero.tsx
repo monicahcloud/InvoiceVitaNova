@@ -18,9 +18,11 @@ export function Hero() {
         </h1>
 
         <p className="max-w-xl mx-auto mt-4 lg:text-lg text-muted-foreground">
-          Why juggle multiple apps when you can do it all in one place? Whether
-          you’re scheduling clients, sending invoices, or streamlining your
-          workflow, we’ve got you covered.
+          <p>
+            Why juggle multiple apps when you can do it all in one place?
+            Whether you&apos;re scheduling clients, sending invoices, or
+            streamlining your workflow, we&apos;ve got you covered.
+          </p>
         </p>
 
         <div className="mt-7 mb-12">
