@@ -14,7 +14,6 @@ import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "./EmptyState";
 
 async function getData(userId: string) {
-
   const data = await prisma.invoice.findMany({
     where: {
       userId: userId,
@@ -42,7 +41,7 @@ export async function InvoiceList() {
       {data.length === 0 ? (
         <EmptyState
           buttontext="Create Invoice"
-          href="/dashboard/invoices/create"
+          href="/invoices/create"
           title="No Invoices Found"
           description="Create an invoice to get started"
         />

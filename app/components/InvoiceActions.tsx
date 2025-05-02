@@ -20,9 +20,9 @@ import { toast } from "sonner";
 
 interface iAppProps {
   id: string;
-  status: string
+  status: string;
 }
-export function InvoiceActions({ id, status}: iAppProps) {
+export function InvoiceActions({ id, status }: iAppProps) {
   const handleSendReminder = () => {
     toast.promise(
       fetch(`/api/email/${id}`, {
@@ -47,7 +47,7 @@ export function InvoiceActions({ id, status}: iAppProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link href={`/dashboard/invoices/${id}`}>
+          <Link href={`/invoices/${id}`}>
             <PencilIcon className="size-4 mr-2" />
             Edit Invoice
           </Link>
@@ -63,14 +63,14 @@ export function InvoiceActions({ id, status}: iAppProps) {
           Reminder Email
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={`/dashboard/invoices/${id}/delete`}>
+          <Link href={`/invoices/${id}/delete`}>
             <Trash className="size-4 mr-2" />
             Delete Invoice
           </Link>
         </DropdownMenuItem>
         {status !== "PAID" && (
           <DropdownMenuItem asChild>
-            <Link href={`/dashboard/invoices/${id}/paid`}>
+            <Link href={`/invoices/${id}/paid`}>
               <CheckCircle className="size-4 mr-2" />
               Mark as Paid
             </Link>

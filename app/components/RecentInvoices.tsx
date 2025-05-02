@@ -6,7 +6,6 @@ import { formatCurrency } from "../utlis/formatCurrency";
 import { SeparatorHorizontal } from "lucide-react";
 
 async function getData(userId: string) {
-    
   const data = await prisma.invoice.findMany({
     where: {
       userId: userId,
@@ -28,11 +27,9 @@ async function getData(userId: string) {
   return data;
 }
 
-
-
 export async function RecentInvoices() {
-    const session = await requireUser();
-    const data = await getData(session.user?.id as string);
+  const session = await requireUser();
+  const data = await getData(session.user?.id as string);
 
   return (
     <Card>
@@ -63,12 +60,9 @@ export async function RecentInvoices() {
                 currency: item.currency as any,
               })}
             </div>
-    </div>  
-          
+          </div>
         ))}
       </CardContent>
-      
     </Card>
-    
   );
 }

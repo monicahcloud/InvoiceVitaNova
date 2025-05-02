@@ -1,69 +1,93 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import {
-  Calendar1,
-  HomeIcon,
-  List,
-  Settings,
-  Settings2,
-  Users2,
-} from "lucide-react";
-import { nanoid } from "nanoid";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import { Calendar1, HomeIcon, List, Settings, Users2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { schedulerlinks } from "./SchedulerLinks"; // import your sublinks here
 
 export const dashboardlinks = [
   {
-    id: nanoid(),
     name: "Dashboard",
-    href: "/dashboard",
+    href: "/home",
     icon: HomeIcon,
   },
   {
-    id: nanoid(),
     name: "Invoices",
-    href: "/dashboard/invoices",
+    href: "/invoices",
     icon: Users2,
   },
   {
-    id: nanoid(),
     name: "Scheduler",
-    href: "/dashboard/scheduler",
+    href: "/scheduler",
     icon: Calendar1,
+    hasSubMenu: true,
   },
   {
-    id: nanoid(),
     name: "Tasks",
-    href: "/dashboard/tasks",
+    href: "/tasks",
     icon: List,
   },
   {
-    id: nanoid(),
     name: "Settings",
-    href: "/dashboard/settings",
+    href: "/settings",
     icon: Settings,
   },
 ];
 
 export function DashboardLinks() {
   const pathname = usePathname();
+
   return (
     <>
-      {dashboardlinks.map((link) => (
-        <Link
-          className={cn(
-            pathname === link.href
-              ? "text-primary bg-primary/10"
-              : "text-muted-foreground hover:text-foreground",
-            "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
-          )}
-          href={link.href}
-          key={link.id}>
-          <link.icon className="size-4" />
-          {link.name}
-        </Link>
-      ))}
+      {dashboardlinks.map((link) => {
+        const isActive = pathname.startsWith(link.href);
+
+        const baseClasses = cn(
+          isActive
+            ? "text-primary bg-primary/10"
+            : "text-muted-foreground hover:text-foreground",
+          "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+        );
+
+        if (link.hasSubMenu) {
+          return (
+            <DropdownMenu key={link.name}>
+              <DropdownMenuTrigger asChild>
+                <div className={baseClasses}>
+                  <link.icon className="size-4" />
+                  {link.name}
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56 space-y-1 mt-2 ml-2 p-2">
+                {schedulerlinks.map((sublink) => (
+                  <DropdownMenuItem key={sublink.id} asChild>
+                    <Link
+                      href={sublink.href}
+                      className="flex items-center gap-2 rounded-md px-2 py-1 text-lg hover:bg-muted">
+                      <sublink.icon className="size-4 text-muted-foreground" />
+                      {sublink.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          );
+        }
+
+        return (
+          <Link href={link.href} key={link.name} className={baseClasses}>
+            <link.icon className="size-4" />
+            {link.name}
+          </Link>
+        );
+      })}
     </>
   );
 }

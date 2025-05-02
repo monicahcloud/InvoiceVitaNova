@@ -1,13 +1,12 @@
 import { Suspense } from "react";
-import { DashboardBlocks } from "../components/DashboaordBlocks";
-import { EmptyState } from "../components/EmptyState";
-import { InvoiceGraph } from "../components/InvoiceGraph";
-import { RecentInvoices } from "../components/RecentInvoices";
-import { requireUser } from "../utlis/hooks";
-import { prisma } from "../utlis/prisma";
 import { Skeleton } from "@/components/ui/skeleton";
-
 import { Metadata } from "next";
+import { prisma } from "@/app/utlis/prisma";
+import { requireUser } from "@/app/utlis/hooks";
+import { EmptyState } from "@/app/components/EmptyState";
+import { DashboardBlocks } from "@/app/components/DashboaordBlocks";
+import { InvoiceGraph } from "@/app/components/InvoiceGraph";
+import { RecentInvoices } from "@/app/components/RecentInvoices";
 export const metadata: Metadata = {
   title: "Dashboard",
 };
@@ -23,7 +22,7 @@ async function getData(userId: string) {
   });
   return data;
 }
-export default async function DashboardRoute() {
+export default async function HomeRoute() {
   const session = await requireUser();
   const data = await getData(session.user?.id as string);
   return (
@@ -33,7 +32,7 @@ export default async function DashboardRoute() {
           buttontext="Create Invoice"
           description="Create an invoice to view invoice dashboard"
           title="No Invoices Found"
-          href="/dashboard/invoices/create"
+          href="/invoices/create"
         />
       ) : (
         <>

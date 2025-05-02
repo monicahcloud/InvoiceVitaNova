@@ -2,11 +2,10 @@ import { ReactNode } from "react";
 import { requireUser } from "../utlis/hooks";
 import Link from "next/link";
 import Logo from "@/public/vitanovalogo.svg";
-
 import { DashboardLinks } from "../components/DashboardLinks";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Menu, UserIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,16 +27,15 @@ async function getUser(userId: string) {
       id: userId,
     },
     select: {
-      firstName: true,
-      lastName: true,
-      address: true,
-      phone: true,
+      userName: true,
     },
   });
 
-  if (!data?.firstName || !data.lastName || !data.address || !data.phone) {
+  if (!data?.userName) {
+    console.log("username: ", data?.userName);
     redirect("/onboarding");
   }
+  return data;
 }
 
 export default async function DashboardLayout({
@@ -62,9 +60,29 @@ export default async function DashboardLayout({
               </Link>
             </div>
             <div className="flex-1">
-              <nav className="grid items-start lg:px-4 px-2 text-sm font-medium">
-                {" "}
-                <DashboardLinks />{" "}
+              <nav className="grid items-start mt-20 lg:px-4 px-2 text-sm font-medium">
+                <h1 className="text-xl text-primary mx-auto mb-4">
+                  Welcome, {session?.user?.name}
+                </h1>
+                <Button
+                  className="rounded-full flex items-center justify-center mx-auto mb-10 w-40 h-40 overflow-hidden p-0 border"
+                  variant="outline"
+                  size="lg">
+                  {session?.user?.image ? (
+                    <Image
+                      priority
+                      src={session?.user?.image}
+                      alt="User Profile Picture"
+                      width={160}
+                      height={160}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <UserIcon className="w-16 h-16 text-muted-foreground" />
+                  )}
+                </Button>
+
+                <DashboardLinks />
               </nav>
             </div>
           </div>
@@ -84,7 +102,7 @@ export default async function DashboardLayout({
               </SheetContent>
             </Sheet>
 
-            <div className="flex items-center ml-auto gap-4 mr-10">
+            <div className="flex items-center ml-auto gap-x-4 ">
               <ThemeToggle />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -105,19 +123,19 @@ export default async function DashboardLayout({
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard">Dashboard</Link>
+                    <Link href="/home">Dashboard</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard/invoices">Invoices</Link>
+                    <Link href="/invoices">Invoices</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard/scheduler">Scheduler</Link>
+                    <Link href="/scheduler">Scheduler</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard/tasks">Task</Link>
+                    <Link href="/tasks">Task</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard/settings">Settings</Link>
+                    <Link href="/settings">Settings</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
