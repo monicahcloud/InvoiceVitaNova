@@ -27,7 +27,7 @@ export function Hero() {
 
         <div className="mt-7 mb-12">
           <Link href="/login">
-            <RainbowButton>Let's Get Started</RainbowButton>
+            <RainbowButton>Let&apos;s Get Started</RainbowButton>
           </Link>
         </div>
       </div>
